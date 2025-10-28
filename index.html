@@ -1,0 +1,136 @@
+<!DOCTYPE html>
+<html lang="id">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Data Peserta Hak Pilih</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background-color: #f4f4f4;
+      margin: 0;
+      padding: 20px;
+      text-align: center;
+    }
+
+    h1 {
+      color: #333;
+    }
+
+    form {
+      margin: 20px auto;
+      background-color: white;
+      padding: 15px;
+      border-radius: 8px;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+      width: 300px;
+    }
+
+    input {
+      width: 90%;
+      padding: 8px;
+      margin: 5px 0;
+      border: 1px solid #ccc;
+      border-radius: 5px;
+    }
+
+    button {
+      background-color: #4CAF50;
+      color: white;
+      border: none;
+      padding: 10px 15px;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+
+    button:hover {
+      background-color: #45a049;
+    }
+
+    table {
+      margin: 20px auto;
+      border-collapse: collapse;
+      width: 80%;
+      background-color: white;
+      box-shadow: 0 0 8px rgba(0,0,0,0.1);
+    }
+
+    th, td {
+      border: 1px solid #ddd;
+      padding: 10px;
+    }
+
+    th {
+      background-color: #4CAF50;
+      color: white;
+    }
+
+    tr:nth-child(even) {
+      background-color: #f9f9f9;
+    }
+  </style>
+</head>
+<body>
+
+  <h1>Data Peserta Hak Pilih</h1>
+
+  <!-- Form input data -->
+  <form id="formHakPilih">
+    <input type="text" id="nama" placeholder="Nama Lengkap" required><br>
+    <input type="number" id="umur" placeholder="Umur" required><br>
+    <button type="submit">Tambah Data</button>
+  </form>
+
+  <!-- Tabel data -->
+  <table id="tabelHakPilih">
+    <tr>
+      <th>No</th>
+      <th>Nama Lengkap</th>
+      <th>Umur</th>
+      <th>Status Hak Pilih</th>
+    </tr>
+  </table>
+
+  <script>
+    const tabel = document.getElementById("tabelHakPilih");
+    const form = document.getElementById("formHakPilih");
+    const dataPeserta = [];
+
+    form.addEventListener("submit", function(event) {
+      event.preventDefault();
+
+      const nama = document.getElementById("nama").value;
+      const umur = parseInt(document.getElementById("umur").value);
+
+      dataPeserta.push({ nama, umur });
+
+      tabel.innerHTML = `
+        <tr>
+          <th>No</th>
+          <th>Nama Lengkap</th>
+          <th>Umur</th>
+          <th>Status Hak Pilih</th>
+        </tr>
+      `;
+
+      for (let i = 0; i < dataPeserta.length; i++) {
+        const p = dataPeserta[i];
+        const status = p.umur >= 17 ? "Memiliki Hak Pilih" : "Tidak Memiliki Hak Pilih";
+        const baris = document.createElement("tr");
+
+        baris.innerHTML = `
+          <td>${i + 1}</td>
+          <td>${p.nama}</td>
+          <td>${p.umur}</td>
+          <td>${status}</td>
+        `;
+
+        tabel.appendChild(baris);
+      }
+
+      form.reset();
+    });
+  </script>
+
+</body>
+</html>
